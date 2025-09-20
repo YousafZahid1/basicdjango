@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.views.generic import View
 import logging
 from pydantic import BaseModel, Field
+from flask import Flask
 logger = logging.getLogger(__name__)
 
 
