@@ -13,9 +13,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Ion OAuth Views based on friend's setup
 
-# This view initiates the OAuth flow
 class IonLoginView(View):
     def get(self, request):
         if request.user.is_authenticated:
