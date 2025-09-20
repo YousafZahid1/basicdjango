@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-# Using standard requests instead of requests_oauthlib to match previous steps
 import requests
 import json
 from django.contrib.auth import login, logout
@@ -10,11 +9,12 @@ from django.conf import settings
 from django.contrib import messages
 from django.views.generic import View
 import logging
-
+from pydantic import BaseModel, Field
 logger = logging.getLogger(__name__)
 
 
 class IonLoginView(View):
+    
     def get(self, request):
         if request.user.is_authenticated:
             # Redirect to blog list after login if accessed directly
