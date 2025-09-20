@@ -78,14 +78,13 @@ class IonCallbackView(View):
             user_response.raise_for_status()
             user_data = user_response.json()
 
-            # Authenticate and login the user using your IonAuthBackend
-            # The user_data structure from /api/profile seems compatible with IonAuthBackend
+        
             user = IonAuthBackend().authenticate(request=request, username=user_data.get('ion_username'), **user_data)
 
             if user:
                 login(request, user, backend='blog.auth.IonAuthBackend')
                 messages.success(request, f"Logged in as {user_data.get('display_name', user.username)}!")
-                return redirect('post_create') # Redirect to create post page after login
+                return redirect('post_create')
             else:
                 logger.error("Failed to authenticate user with Ion data")
                 messages.error(request, "Could not authenticate user with Ion data.")
@@ -100,9 +99,9 @@ class IonCallbackView(View):
             messages.error(request, "Invalid response from Ion OAuth server.")
             return redirect('oauth2')
 
-# This view handles logout
+
 class IonLogoutView(View):
     def get(self, request):
         logout(request)
         messages.success(request, "Logged out successfully.")
-        return redirect('post_list') # Redirect to blog list after logout
+        return redirect('post_list')
